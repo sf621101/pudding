@@ -1,5 +1,6 @@
 package pudding.ribbon.controller;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
@@ -7,6 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+import pudding.ribbon.entity.ResponseBean;
+
+import java.time.LocalTime;
 
 /**
  * create by wusf on 2017/12/22.<br>
@@ -22,23 +26,30 @@ public class PuddingController {
     private LoadBalancerClient loadBalancerClient;
 
     @GetMapping("/test")
+    @HystrixCommand(fallbackMethod = "hiFallBack")
     public String hi(){
-//        ServiceInstance serviceInstance = this.loadBalancerClient.choose("pudding-eureka-client1:192.168.1.176:8702");
-//        System.out.println("111" + ":" + serviceInstance.getServiceId() + ":" + serviceInstance.getHost() + ":" + serviceInstance.getPort());
-//
-//        return ("111" + ":" + serviceInstance.getServiceId() + ":" + serviceInstance.getHost() + ":" + serviceInstance.getPort());
         System.out.println(this.restTemplate.getForObject("http://pudding-eureka-client1/say/hi",String.class));
         return this.restTemplate.getForObject("http://pudding-eureka-client1/say/hi",String.class);
     }
 
+
+    public String hiFallBack(){
+        return "嗨你妹个嗨!";
+    }
     @GetMapping("/happay")
     public String happay(){
-//        ServiceInstance serviceInstance = this.loadBalancerClient.choose("pudding-eureka-client1:192.168.1.176:8702");
-//        System.out.println("111" + ":" + serviceInstance.getServiceId() + ":" + serviceInstance.getHost() + ":" + serviceInstance.getPort());
-//
-//        return ("111" + ":" + serviceInstance.getServiceId() + ":" + serviceInstance.getHost() + ":" + serviceInstance.getPort());
         String kk=this.restTemplate.getForObject("http://pudding-eureka-client2/say/hi",String.class);
         System.out.println(kk);
         return kk;
+    }
+
+    @RequestMapping("/play/dolly")
+    @HystrixCommand(fallbackMethod = "playDollyFallBack")
+    public ResponseBean playDolly(){
+        return this.restTemplate.getForObject("http://pudding-eureka-client1/play/dolly?time="+LocalTime.now().toString()+"&type=dolly",ResponseBean.class);
+    }
+
+    public ResponseBean playDollyFallBack(){
+        return new ResponseBean();
     }
 }
