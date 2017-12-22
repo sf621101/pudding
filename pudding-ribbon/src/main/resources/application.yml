@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: pudding-ribbon
+server:
+  port: 8800
+eureka:
+  client:
+    service-url:
+      defaultZone: http://user:password123@localhost:8761/eureka
+  instance:
+    prefer-ip-address: true
+pudding-eureka-client1:
+  ribbon:
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+pudding-eureka-client2:
+  ribbon:
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RetryRule
