@@ -9,14 +9,14 @@ eureka:
       defaultZone: http://user:password123@localhost:8761/eureka
   instance:
     prefer-ip-address: true
-##--start   ²»Í¬·þÎñÆô¶¯²»Í¬µÄ¸ºÔØ²ßÂÔ --##
+##--start   ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¬ï¿½Ä¸ï¿½ï¿½Ø²ï¿½ï¿½ï¿½ --##
 pudding-eureka-client1:
   ribbon:
     NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
 pudding-eureka-client2:
   ribbon:
     NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RetryRule
-##--end   ²»Í¬·þÎñÆô¶¯²»Í¬µÄ¸ºÔØ²ßÂÔ --##
+##--end   ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¬ï¿½Ä¸ï¿½ï¿½Ø²ï¿½ï¿½ï¿½ --##
 
 #ribbon:
 #  eureka:

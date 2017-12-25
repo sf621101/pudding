@@ -26,7 +26,7 @@ public class PuddingController {
     private LoadBalancerClient loadBalancerClient;
 
     @GetMapping("/test")
-    @HystrixCommand(fallbackMethod = "hiFallBack")
+    @HystrixCommand(fallbackMethod = "hiFallBack")  //todo 异常切换渠道
     public String hi(){
         System.out.println(this.restTemplate.getForObject("http://pudding-eureka-client1/say/hi",String.class));
         return this.restTemplate.getForObject("http://pudding-eureka-client1/say/hi",String.class);

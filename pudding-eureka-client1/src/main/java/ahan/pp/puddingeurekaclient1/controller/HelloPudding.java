@@ -2,6 +2,7 @@ package ahan.pp.puddingeurekaclient1.controller;
 
 import ahan.pp.puddingeurekaclient1.entity.RequestBean;
 import ahan.pp.puddingeurekaclient1.entity.ResponseBean;
+import ahan.pp.puddingeurekaclient1.exception.ServiceException;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,8 +16,10 @@ import java.time.LocalTime;
 public class HelloPudding {
 
     @RequestMapping(value = "/say/hi")
-    public String sayHi(){
-        return  "hi pudding1";
+    public String sayHi()
+    {
+        throw new ServiceException("错误");
+//        return  "hi pudding1";
     }
 
     @RequestMapping("/play/dolly")

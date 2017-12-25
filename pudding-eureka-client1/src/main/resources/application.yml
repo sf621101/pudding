@@ -10,3 +10,7 @@ eureka:
 spring:
   application:
     name: pudding-eureka-client1
+  http:
+    multipart:
+      max-file-size: 1Mb
+      max-request-size: 10Mb
